@@ -57,6 +57,6 @@ NodeJS, express, REST API
 
 ## Ссылка на сервер в Яндекс Облаке:
 - URL
-https://www.api.news-v.students.nomoreparties.co
+https://www.news-v.api.students.nomoreparties.co
 - IP
 130.193.56.255
