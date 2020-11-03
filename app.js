@@ -15,7 +15,7 @@ const routeUsers = require('./routes/users.js');
 const { createUser, login } = require('./controllers/users.js');
 const auth = require('./middlewares/auth.js');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
