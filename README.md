@@ -18,8 +18,8 @@
 |GET /users/me|	          возвращает информацию о пользователе (email и имя)|
 |POST /articles|                   создаёт статью с переданными в теле keyword, title, text, date, source, link и image|
 |DELETE /articles/articleId|         удаляет сохранённую статью  по _id|
-|POST /signup|                  создаёт пользователя|
-|POST /signin|                  авторизация пользователя|
+|POST /signup|                  создаёт пользователя с переданными в теле email, password и name|
+|POST /signin|                  проверяет переданные в теле почту и пароль и возвращает JWT|
 
 
 ## Стэк технологий:
