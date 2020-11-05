@@ -74,10 +74,6 @@ app.use(errorLogger);
 app.use(errors()); // подключение обрабочика ошибок Celebrate
 
 app.use((err, req, res, next) => {
-  if (err instanceof mongoose.Error.DocumentNotFoundError) {
-    res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-    return;
-  }
   // если у ошибки нет статуса, выставляем 500
   const { statusCode = 500, message } = err;
   // выставляем сообщение в зависимости от статуса

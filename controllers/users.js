@@ -6,12 +6,14 @@ const UserCollection = require('../models/user.js');
 // конструкторы ошибок
 const ReqErr = require('../errors/req-err');
 const NewErr = require('../errors/new-err');
+const NotFoundErr = require('../errors/not-found-err');
 
-module.exports.getUserByConditions = (req, res, next) => {
-  const { email, name } = req.body;
-
-  UserCollection.findOne({ email, name }).orFail()
-    .then((user) => res.send({ data: user }))
+module.exports.getUserInfo = (req, res, next) => {
+  UserCollection.findById(req.user).orFail(new NotFoundErr('Запршиваемый пользователь не найден'))
+    .then((user) => {
+      const { name, email } = user;
+      res.send({ data: { name, email } });
+    })
     .catch(next);
 };
 

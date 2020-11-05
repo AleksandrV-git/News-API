@@ -6,7 +6,7 @@ const NewErr = require('../errors/new-err');
 const NotFoundErr = require('../errors/not-found-err');
 
 module.exports.getArticles = (req, res, next) => {
-  articleCollection.find({}).orFail()
+  articleCollection.find({}).orFail(new NotFoundErr('статьи не найдены'))
     .then((article) => res.send({ data: article }))
     .catch(next);
 };
