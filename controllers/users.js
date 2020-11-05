@@ -32,7 +32,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         if (err.errors.email && err.errors.email.kind === 'unique') {
-          next(new NewErr('Переданы некорректные данные', 409));
+          next(new NewErr('конфликт передаваемых данных', 409));
         } else {
           next(new ReqErr('Переданы некорректные данные'));
         }
@@ -46,8 +46,6 @@ module.exports.login = (req, res, next) => {
   return UserCollection.findUserByCredentials(email, password) // кастомный метод
     .then((user) => {
       if (!JWT_SECRET && NODE_ENV !== 'development') {
-        // eslint-disable-next-line no-console
-        console.log('JWT_SECRET not find');
         next(new NewErr('На сервере произошла ошибка', 500));
         return;
       }

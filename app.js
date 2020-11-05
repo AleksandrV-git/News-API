@@ -15,6 +15,8 @@ const routeUsers = require('./routes/users.js');
 const { createUser, login } = require('./controllers/users.js');
 const auth = require('./middlewares/auth.js');
 
+const NotFoundErr = require('./errors/not-found-err');
+
 const { PORT = 3000, DATABASE_URL = 'mongodb://localhost:27017/news-explorer-db' } = process.env;
 const app = express();
 const limiter = rateLimit({
@@ -63,15 +65,14 @@ app.use(celebrate({
 
 app.use('/users', routeUsers);
 app.use('/articles', routeArticles);
-app.use((req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+app.use((req, res, next) => {
+  next(new NotFoundErr('Запрашиваемый ресурс не найден'));
 });
 
 app.use(errorLogger);
 
 app.use(errors()); // подключение обрабочика ошибок Celebrate
 
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   if (err instanceof mongoose.Error.DocumentNotFoundError) {
     res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
@@ -81,9 +82,7 @@ app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   // выставляем сообщение в зависимости от статуса
   res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+  next();
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`App listening on port ${PORT}`);
-});
+app.listen(PORT);

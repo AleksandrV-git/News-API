@@ -13,8 +13,6 @@ module.exports = (req, res, next) => {
     return;
   }
   if (!JWT_SECRET && NODE_ENV !== 'development') {
-    // eslint-disable-next-line no-console
-    console.log('JWT_SECRET not find');
     next(new NewErr('На сервере произошла ошибка', 500));
     return;
   }

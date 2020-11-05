@@ -11,7 +11,6 @@ module.exports = {
     "sourceType": "module",
   },
   "rules": {
-    "object-curly-newline": ["error", { "consistent": true }],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
   },
 };
