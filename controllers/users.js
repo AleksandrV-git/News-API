@@ -34,7 +34,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         if (err.errors.email && err.errors.email.kind === 'unique') {
-          next(new NewErr('конфликт передаваемых данных', 409));
+          next(new NewErr('Пользователь с данным e-mail уже зарегистрирован', 409));
         } else {
           next(new ReqErr('Переданы некорректные данные'));
         }
