@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
@@ -24,6 +25,7 @@ const limiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
 });
 
+app.use(cors());
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
@@ -50,7 +52,7 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(2).max(30),
+    password: Joi.string().required().min(8).max(30),
   }),
 }), createUser);
 
