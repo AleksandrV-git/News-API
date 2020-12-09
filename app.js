@@ -25,7 +25,7 @@ const limiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
 });
 
-app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+app.use(cors({credentials: true, origin: 'http://localhost:8080', allowedHeaders: 'Content-Type, Coockie'}));
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
