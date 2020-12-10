@@ -18,6 +18,19 @@ const auth = require('./middlewares/auth.js');
 
 const NotFoundErr = require('./errors/not-found-err');
 
+const whitelist = ['http://localhost:8080', 'https://www.news-v.api.students.nomoreparties.co'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  allowedHeaders: 'Content-Type',
+  optionsSuccessStatus: 200,
+}
 const { PORT = 3000, DATABASE_URL = 'mongodb://localhost:27017/news-explorer-db' } = process.env;
 const app = express();
 const limiter = rateLimit({
@@ -25,12 +38,7 @@ const limiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
 });
 
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:8080',
-  allowedHeaders: 'Content-Type',
-  optionsSuccessStatus: 200,
-}));
+app.use(cors(corsOptions));
 app.use(limiter);
 //app.use(helmet());
 app.use(bodyParser.json());
