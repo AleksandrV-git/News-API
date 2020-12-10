@@ -28,7 +28,7 @@ const limiter = rateLimit({
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:8080',
-  allowedHeaders: 'API-Key,Content-Type,If-Modified-Since,Cache-Control',
+  allowedHeaders: 'Content-Type',
   optionsSuccessStatus: 200,
 }));
 app.use(limiter);
