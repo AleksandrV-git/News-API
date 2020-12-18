@@ -6,7 +6,8 @@ const NewErr = require('../errors/new-err');
 const NotFoundErr = require('../errors/not-found-err');
 
 module.exports.getArticles = (req, res, next) => {
-  articleCollection.find({}).orFail(new NotFoundErr('статьи не найдены'))
+  const ownerId = req.user._id;
+  articleCollection.find({owner: ownerId}).orFail(new NotFoundErr('статьи не найдены'))
     .then((article) => res.send({ data: article }))
     .catch(next);
 };
@@ -34,7 +35,7 @@ module.exports.deleteArticleById = (req, res, next) => {
       if (String(article.owner) !== req.user._id) {
         throw new NewErr('Вы не можете удалять карточки других пользователей', 403);
       }
-      articleCollection.remove().then((removedArticle) => res.send(removedArticle));
+      articleCollection.findByIdAndRemove(req.params.articleId).then((removedArticle) => res.send(removedArticle));
     })
     .catch(next);
 };
