@@ -18,7 +18,11 @@ const auth = require('./middlewares/auth.js');
 
 const NotFoundErr = require('./errors/not-found-err');
 
-const whitelist = ['http://localhost:8080', 'https://www.news-v.api.students.nomoreparties.co'];
+const whitelist = ['http://localhost:8080',
+'https://api.news-v.students.nomoreparties.space',
+'https://www.api.news-v.students.nomoreparties.space',
+'http://api.news-v.students.nomoreparties.space',
+'http://www.api.news-v.students.nomoreparties.space'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
