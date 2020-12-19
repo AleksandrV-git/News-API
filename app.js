@@ -22,7 +22,8 @@ const whitelist = ['http://localhost:8080',
 'https://api.news-v.students.nomoreparties.space',
 'https://www.api.news-v.students.nomoreparties.space',
 'http://api.news-v.students.nomoreparties.space',
-'http://www.api.news-v.students.nomoreparties.space'];
+'http://www.api.news-v.students.nomoreparties.space',
+'https://aleksandrv-git.github.io/news-explorer-frontend'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
