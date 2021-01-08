@@ -57,7 +57,7 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7}).end();;
+      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).end();;
     })
     .catch(next);// ошибка 401 обрабатывается в модели
 };
